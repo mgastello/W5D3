@@ -3,7 +3,7 @@ require 'sqlite3'
 
 class User
     attr_accessor :id, :fname, :lname
-    
+
     def self.find_all
         data = QuestionsDB.instance.execute("SELECT * FROM users")
         data.map { |datum| User.new(datum) }
@@ -37,11 +37,28 @@ class User
 
         User.new(user)
     end
+    
+    def self.authored_questions(fname, lname)
+        questions = QuestionsDB.instance.execute(<<-SQL, fname, lname)
+            SELECT
+                *
+            FROM
+                users
+            JOIN questions
+            ON users.id = questions.user_id
+            WHERE
+                fname = ? AND
+                lname = ?
+
+        SQL
+        questions.map { |question| Question.new(question) }
+    end
 
     def initialize(values)
         @id = values['id']
         @fname = values['fname']
         @lname = values['lname']
     end
+
   
 end
