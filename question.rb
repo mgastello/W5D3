@@ -38,4 +38,20 @@ class Question
         @user_id = values['user_id']
     end
   
+    def author
+        result = QuestionsDB.instance.execute(<<-SQL, self.user_id)
+            SELECT
+                *
+            FROM
+                users
+            WHERE
+                id = ?
+        SQL
+
+        User.new(result)
+    end
+
+    def replies
+        
+    end
 end
