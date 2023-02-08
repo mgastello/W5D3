@@ -14,8 +14,18 @@ CREATE TABLE questions(
 );
 
 CREATE TABLE question_follows(
+    id INTEGER PRIMARY KEY,
+    post_id INTEGER NOT NULL,
+    follower_id INTEGER NOT NULL,
+
+    FOREIGN KEY (follower_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES questions(id)
+); 
+
+CREATE TABLE replies (
+    id INTEGER PRIMARY KEY,
+    reply VARCHAR(300) NOT NULL,
     
 
 
-
-)
+);
