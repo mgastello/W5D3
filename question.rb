@@ -1,5 +1,4 @@
-require_relative 'database'
-require 'sqlite3'
+require_relative 'all_classes'
 
 class Question
     attr_accessor :id, :title, :body, :user_id
@@ -17,6 +16,20 @@ class Question
 
         Question.new(question)
     end
+
+
+    def self.find_by_author_id(author_id)
+        question = QuestionsDB.instance.execute(<<-SQL, author_id)
+            SELECT
+                *
+            FROM
+                questions
+            WHERE
+                user_id = ? 
+        SQL
+        question.map { |q| Question.new(q) }
+    end
+
 
     def initialize(values)
         @id = values['id']

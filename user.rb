@@ -1,5 +1,4 @@
-require_relative 'database'
-require 'sqlite3'
+require_relative 'all_classes'
 
 class User
     attr_accessor :id, :fname, :lname
@@ -49,7 +48,6 @@ class User
             WHERE
                 fname = ? AND
                 lname = ?
-
         SQL
         questions.map { |question| Question.new(question) }
     end

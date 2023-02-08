@@ -1,5 +1,4 @@
-require_relative 'database'
-require 'sqlite3'
+require_relative 'all_classes'
 
 class Like
     attr_accessor :id, :user_id, :question_id

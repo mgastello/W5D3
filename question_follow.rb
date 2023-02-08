@@ -1,5 +1,4 @@
-require_relative 'database'
-require 'sqlite3'
+require_relative 'all_classes'
 
 class QuestionFollow
     attr_accessor :id, :question_id, :user_id

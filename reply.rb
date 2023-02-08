@@ -1,5 +1,4 @@
-require_relative 'database'
-require 'sqlite3'
+require_relative 'all_classes'
 
 class Reply
     attr_accessor :id, :question_id, :body, :parent_reply, :user_id
@@ -17,6 +16,21 @@ class Reply
 
         Reply.new(reply)
     end
+
+
+    def self.find_by_user_id(user_id)
+        replies = QuestionsDB.instance.execute(<<-SQL, user_id)
+            SELECT
+                *
+            FROM
+                replies
+            WHERE
+                user_id = ?
+        SQL
+
+        replies.map { |reply| Reply.new(reply) }
+    end
+
 
     def initialize(values)
         @id = values['id']
