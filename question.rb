@@ -20,8 +20,9 @@ class Question
 
     def initialize(values)
         @id = values['id']
-        @fname = values['fname']
-        @lname = values['lname']
+        @title = values['title']
+        @body = values['body']
+        @user_id = values['user_id']
     end
   
 end

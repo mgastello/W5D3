@@ -1,27 +1,27 @@
 require_relative 'database'
 require 'sqlite3'
 
-class User
-    attr_accessor :id, :fname, :lname
+class QuestionFollow
+    attr_accessor :id, :question_id, :user_id
     
     def self.find_by_id(id)
-        user = QuestionsDB.instance.execute(<<-SQL, id)
+        follow = QuestionsDB.instance.execute(<<-SQL, id)
             SELECT
                 *
             FROM
-                users
+                question_follows
             WHERE
                 id = ?
         SQL
-        return nil unless user.length > 0
+        return nil unless follow.length > 0
 
-        User.new(user)
+        QuestionFollow.new(follow)
     end
 
     def initialize(values)
         @id = values['id']
-        @fname = values['fname']
-        @lname = values['lname']
+        @question_id = values['question_id']
+        @user_id = values['user_id']
     end
   
 end
