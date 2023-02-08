@@ -44,3 +44,50 @@ CREATE TABLE question_likes (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (question_id) REFERENCES questions(id)
 );
+
+-- Seeding users
+INSERT INTO users (fname, lname)
+VALUES ('michael', 'gastello')
+INSERT INTO users (fname, lname)
+VALUES ('gary', 'hor')
+INSERT INTO users (fname, lname)
+VALUES ('alvin', 'zablan')
+
+
+-- Seeding questions
+INSERT INTO questions (title, body, user_id)
+VALUES ('SQLite3',
+    'how we do dis',
+    (SELECT id FROM users WHERE fname = 'michael'))
+INSERT INTO questions (title, body, user_id)
+VALUES ('supreme',
+    'testing waters $100',
+    (SELECT id FROM users WHERE fname = 'gary'))
+INSERT INTO questions (title, body, user_id)
+VALUES ('app academy',
+    'miss you guys',
+    (SELECT id FROM users WHERE fname = 'alvin'))
+
+
+-- Seeding question_follows
+INSERT INTO question_follows (question_id, user_id)
+VALUES ((SELECT question_id FROM questions WHERE user_id = 3),
+    (SELECT id FROM users WHERE fname = 'michael')
+    )
+INSERT INTO question_follows (question_id, user_id)
+VALUES ((SELECT question_id FROM questions WHERE user_id = 3),
+    (SELECT id FROM users WHERE fname = 'gary')
+    )
+INSERT INTO question_follows (question_id, user_id)
+VALUES ((SELECT question_id FROM questions WHERE user_id = 1),
+    (SELECT id FROM users WHERE fname = 'gary')
+    )
+INSERT INTO question_follows (question_id, user_id)
+VALUES ((SELECT question_id FROM questions WHERE user_id = 2),
+    (SELECT id FROM users WHERE fname = 'michael')
+    )
+
+
+-- Seeding replies
+INSERT INTO replies (subject_question, body, parent_reply, user_id)
+VALUES ()
